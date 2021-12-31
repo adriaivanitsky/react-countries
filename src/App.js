@@ -32,6 +32,15 @@ function App() {
           setSearch(e.target.value);
         }}
       ></input>
+      <select>
+        <option value="Asia">asia</option>
+        <option value="Africa">africa</option>
+        <option value="North America">north america</option>
+        <option value="South America">south america</option>
+        <option value="Europe">europe</option>
+        <option value="Oceania">oceania</option>
+        <option value="Antarctica">antarctica</option>
+      </select>
       {filter().map((country) => (
         <div key={country.id}>
           <img
