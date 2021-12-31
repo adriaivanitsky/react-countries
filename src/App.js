@@ -5,8 +5,8 @@ import { getCountries } from './services/countries';
 function App() {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [continents, setContinents] = useState('all');
-  // const [query, setQuery] = useState('');
+  const [search, setSearch] = useState('');
+  const [continents, setContinents] = useState('all');
   useEffect(() => {
     const fetchData = async () => {
       const data = await getCountries();
@@ -16,11 +16,23 @@ function App() {
     fetchData();
   }, []);
   if (loading) return <h1>Loading...</h1>;
+  function filter() {
+    return countries.filter((country) => {
+      return country.name.includes(search);
+    });
+  }
   return (
     <div className="App">
       <h1>flags of the world</h1>
-      <input placeholder="country"></input>
-      {countries.map((country) => (
+      <input
+        placeholder="country"
+        type="text"
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+        }}
+      ></input>
+      {filter().map((country) => (
         <div key={country.id}>
           <img
             src={`https://flagcdn.com/16x12/${country.iso2.toLowerCase()}.png`}
