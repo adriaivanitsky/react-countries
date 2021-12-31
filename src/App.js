@@ -6,7 +6,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [continents, setContinents] = useState('all');
+  const [continent, setContinent] = useState('all');
   useEffect(() => {
     const fetchData = async () => {
       const data = await getCountries();
@@ -18,7 +18,9 @@ function App() {
   if (loading) return <h1>Loading...</h1>;
   function filter() {
     return countries.filter((country) => {
-      return country.name.includes(search);
+      return (
+        country.name.includes(search) && (country.continent === continent || continent === 'all')
+      );
     });
   }
   return (
@@ -32,7 +34,8 @@ function App() {
           setSearch(e.target.value);
         }}
       ></input>
-      <select>
+      <select value={continent} onChange={(e) => setContinent(e.target.value)}>
+        <option value="all">all</option>
         <option value="Asia">asia</option>
         <option value="Africa">africa</option>
         <option value="North America">north america</option>
